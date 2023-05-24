@@ -10,12 +10,16 @@ use serenity::{
 
 mod play;
 mod skip;
+mod pause;
+mod resume;
 
 use play::PLAY_COMMAND;
 use skip::SKIP_COMMAND;
+use pause::PAUSE_COMMAND;
+use resume::RESUME_COMMAND;
 
 #[group]
-#[commands(join, leave, play, skip, stop, ping)]
+#[commands(join, leave, play, skip, stop, ping, pause, resume)]
 pub struct General;
 
 #[command]

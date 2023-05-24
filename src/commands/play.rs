@@ -15,17 +15,16 @@ pub async fn play(ctx: &Context, msg: &Message, args: Args) -> CommandResult {
     let mut url = String::from(args.rest());
 
     if !url.starts_with("https://") && !url.starts_with("http://") {
-        let playlist = match youtube_dl::YoutubeDl::search_for(&SearchOptions::youtube(url).clone()).run_async().await {
+        let playlist = match youtube_dl::YoutubeDl::search_for(&SearchOptions::youtube(url)).run_async().await {
             Ok(search) => search.into_playlist(),
             Err(why) => {
                 println!("Error searching for vids:\n{}", why);
 
-                check_msg(msg.reply(&ctx.http, "No video was found").await);
+                check_msg(msg.reply(&ctx.http, "Something went wrong").await);
 
                 return Ok(());
             }
         };
-        
 
         if let Some(Playlist { entries, .. }) = playlist {
             match entries {

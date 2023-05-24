@@ -1,5 +1,5 @@
 use serenity::{
-    framework::standard::{macros::command, Args, CommandResult},
+    framework::standard::{macros::command, CommandResult},
     model::prelude::*,
     prelude::*,
 };
@@ -7,9 +7,7 @@ use serenity::{
 use crate::check_msg;
 
 #[command]
-#[aliases("s")]
-#[only_in(guilds)]
-pub async fn skip(ctx: &Context, msg: &Message, _args: Args) -> CommandResult {
+pub async fn resume(ctx: &Context, msg: &Message) -> CommandResult {
     let guild = msg.guild(&ctx.cache).unwrap();
     let guild_id = guild.id;
 
@@ -21,16 +19,7 @@ pub async fn skip(ctx: &Context, msg: &Message, _args: Args) -> CommandResult {
     if let Some(handler_lock) = manager.get(guild_id) {
         let handler = handler_lock.lock().await;
         let queue = handler.queue();
-        let _ = queue.skip();
-
-        check_msg(
-            msg.channel_id
-                .say(
-                    &ctx.http,
-                    format!("Song skipped: {} in queue.", queue.len()),
-                )
-                .await,
-        );
+        let _ = queue.resume();
     } else {
         check_msg(
             msg.channel_id
