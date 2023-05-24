@@ -21,7 +21,7 @@ impl EventHandler for Handler {
 
 #[tokio::main]
 async fn main() {
-    let token = std::env::var("TOKEN").expect("Expected a token in the environment");
+    let token = dotenvy::var("TOKEN").expect("Expected a token in the environment");
 
     let framework = StandardFramework::new()
         .configure(|c| c.prefix("$"))
