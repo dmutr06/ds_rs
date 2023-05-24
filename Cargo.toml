@@ -1,0 +1,14 @@
+[package]
+name = "ds_rs"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dotenvy = "0.15.7"
+security-framework = "2.9.1"
+serenity = { version = "0.11.5", features = ["client", "standard_framework", "voice", "rustls_backend", "cache"] }
+songbird = { version = "0.3.2", features = ["yt-dlp", "builtin-queue"] }
+tokio = { version = "1.28.1", features = ["macros", "rt-multi-thread", "signal"] }
+youtube_dl = { version = "0.8.1", features = ["tokio"] }
